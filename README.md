@@ -13,7 +13,6 @@ A multi-agent LinkedIn post generator and refiner built with **LangGraph**, prov
 
 ```text
 reflection_agent/
-├── bot.py           # Legacy (deleted)
 ├── telegram_bot.py  # Main Telegram Bot entry point
 ├── ui_app.py        # Streamlit Web Interface
 ├── reflection.py    # Core LangGraph workflow logic
