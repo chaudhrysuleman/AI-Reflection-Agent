@@ -9,6 +9,8 @@ from telegram.ext import (
     CallbackQueryHandler,
     filters,
 )
+import os
+from dotenv import load_dotenv, find_dotenv
 
 try:
     from reflection import build_graph
@@ -18,7 +20,8 @@ except ImportError:
     build_graph = None
     print("Warning: reflection.py or dependencies not found. Using placeholders.")
 
-BOT_TOKEN = "8222070257:AAEJO7Z24ywKO6JMZ86bbJkcYA37G91T-70"
+load_dotenv(find_dotenv())
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 user_state = {}
 
