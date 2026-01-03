@@ -31,12 +31,7 @@ if start_button and topic:
     message_container = st.container()
     final_post = ""
     
-    # Run the workflow
     with st.spinner("Agent and Critic are collaborating..."):
-        # We use a recursion limit to control the rounds
-        # Note: In our build_graph, we have a len(state) > 6 check which is ~3 rounds
-        # We can pass config to stream if needed, but for now we follow the internal logic.
-        
         events = workflow.stream(inputs)
         
         for event in events:

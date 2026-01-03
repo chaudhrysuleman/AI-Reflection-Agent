@@ -10,7 +10,6 @@ from telegram.ext import (
     filters,
 )
 
-# Import the LangGraph transition logic
 try:
     from reflection import build_graph
     from langchain_core.messages import HumanMessage, AIMessage
@@ -21,17 +20,14 @@ except ImportError:
 
 BOT_TOKEN = "8222070257:AAEJO7Z24ywKO6JMZ86bbJkcYA37G91T-70"
 
-# ---- STATES (simple) ----
 user_state = {}
 
-# ---- START ----
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "Hi 👋\nWhat topic should I write about for today's LinkedIn post?"
     )
     user_state[update.effective_user.id] = {"stage": "WAIT_TOPIC"}
 
-# ---- RECEIVE TOPIC ----
 async def handle_topic(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
     state = user_state.get(user_id)
@@ -45,7 +41,6 @@ async def handle_topic(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await update.message.reply_text("🔁 Generating and refining your post using LangGraph... Please wait.")
 
-    # 👉 Call your LangGraph agent here
     generated_post = await generate_linkedin_post(topic)
 
     state["post"] = generated_post
@@ -63,7 +58,6 @@ async def handle_topic(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=InlineKeyboardMarkup(keyboard),
     )
 
-# ---- APPROVAL HANDLER ----
 async def handle_decision(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
@@ -138,7 +132,6 @@ def post_to_linkedin(content: str):
     # 🔗 Playwright or LinkedIn API here
     print("Posting to LinkedIn:\n", content)
 
-# ---- MAIN ----
 def main():
     try:
         print("Starting ApplicationBuilder...", flush=True)
